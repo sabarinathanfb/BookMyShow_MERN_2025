@@ -1,15 +1,16 @@
-import Theatre from '../model/theatre.model.js'
+import Movie from '../model/movie.model.js'
 
-export const addTheatre = async(req, res)=>{
+export const addMovie = async(req, res)=>{
     try{
+        
 
-        const newTheatre = new Theatre(req.body);
-        newTheatre.owner = req.user.id;
-        const savedTheatre = await newTheatre.save();
+        const newMovie = new Movie(req.body);
+        newMovie.owner = req.user.id;
+        const savedMovie = await newMovie.save();
 
         res.status(200).send({
             success:true,
-            ...savedTheatre
+            ...savedMovie
         })
 
     }catch(e){
@@ -20,16 +21,14 @@ export const addTheatre = async(req, res)=>{
     }
 
 }
-export const getAllTheatre = async(req, res)=>{
+export const getAllMovie = async(req, res)=>{
 
     try{
         const ownerId = req.query.ownerId;
         const filter = {};
-        if(ownerId){
-            filter.ownerId = ownerId
-        }
-        const theatresDetails = await Theatre.find(filter);
-        res.send(theatresDetails);
+
+        const moviesDetails = await Movie.find(filter);
+        res.send(moviesDetails);
     }catch(e){
         res.status(500).send({
             success:false,
@@ -38,12 +37,12 @@ export const getAllTheatre = async(req, res)=>{
     }
 
 }
-export const getTheatreById = async(req, res)=>{
+export const getMovieById = async(req, res)=>{
     try{
-        const theatreDetails = await Theatre.findById(req.params.theatreId)
+        const movieDetails = await Movie.findById(req.params.movieId)
         res.status(200).send({
             success:true,
-            theatreDetails
+            movieDetails
         })
 
     }catch(e){
@@ -54,10 +53,10 @@ export const getTheatreById = async(req, res)=>{
     }
 }
 
-export const updateTheatre = async(req, res)=>{
+export const updateMovie = async(req, res)=>{
     try{
-        const theatreDetails = await Theatre.findByIdAndUpdates(
-            req.params.theatreId,
+        const movieDetails = await Movie.findByIdAndUpdates(
+            req.params.movieId,
             {$set: req.body},
             {new: true, runValidators: true}
         )
@@ -68,11 +67,11 @@ export const updateTheatre = async(req, res)=>{
         })
     }
 }
-export const deleteTheatre = async(req, res)=>{
+export const deleteMovie = async(req, res)=>{
     try{
-        const deletedTheatre = await Theatre.findByIdAndDelete(req.params.theatreId);
+        const deletedMovie = await Movie.findByIdAndDelete(req.params.movieId);
 
-        res.status(200).send(deletedTheatre);
+        res.status(200).send(deletedMovie);
     }catch(e){
         res.status(500).send({
             success:false,

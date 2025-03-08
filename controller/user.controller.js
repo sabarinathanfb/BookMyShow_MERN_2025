@@ -50,7 +50,7 @@ export const login = async (req, res) => {
             });
         }
 
-        const user = await User.findOne({ email: userDetails.email }).select('password email _id');
+        const user = await User.findOne({ email: userDetails.email }).select('password email isAdmin');
 
         if (!user) {
             return res.status(401).send({
@@ -71,7 +71,7 @@ export const login = async (req, res) => {
         
 
         const jwtToken = jwt.sign(
-            { id: user._id, email: user.email , isOwner: user.isOwner},
+            { id: user._id, email: user.email , isAdmin: user.isAdmin},
             process.env.JWT_SECRET_KEY,
             { expiresIn: '1d' }
         );

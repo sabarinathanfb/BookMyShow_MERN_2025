@@ -16,12 +16,12 @@ const movieSchema = new Schema({
         required:true,
     },
     genre:{
-        type:String,
+        type:[String],
         enum:["Action","Thriller","Fantasy"],
         required:true,
     },
     language:{
-        type:String,
+        type:[String],
         enum: ["English","Hindi"],  
         required:true,
     },
