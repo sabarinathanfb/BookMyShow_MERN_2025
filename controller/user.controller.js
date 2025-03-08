@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken'
 export const getUserDetail = async (req,res) =>{
     const jwtToken = await req.headers['authorization'];
 
-    const userData = jwt.verify(jwtToken,'123456');
+    const userData = jwt.verify(jwtToken,process.env.JWT_SECRET_KEY);
 
     if(userData){
         console.log('Email',userData.email);
@@ -61,16 +61,18 @@ export const login = async (req, res) => {
 
         const validPassword = await bcrypt.compare(userDetails.password, user.password);
 
+        console.log(validPassword);
         if (!validPassword) {
             return res.status(401).send({
                 status: false,
                 message: "Email or password is incorrect"
             });
         }
+        
 
         const jwtToken = jwt.sign(
-            { id: user._id, email: user.email },
-           "123456",
+            { id: user._id, email: user.email , isOwner: user.isOwner},
+            process.env.JWT_SECRET_KEY,
             { expiresIn: '1d' }
         );
 
@@ -78,7 +80,6 @@ export const login = async (req, res) => {
         return res.status(200).send({
             status: true,
             message: "You are logged in",
-            token: jwtToken
         });
     } catch (error) {
         console.error("Login error:", error);
