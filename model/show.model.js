@@ -1,6 +1,6 @@
 import mongoose, { model, Schema } from "mongoose";
 
-const showSceme = new Schema({
+const showSchema  = new Schema({
     name:{
         type:String,
         required:[true, "Theatre name is Required"]
@@ -18,10 +18,10 @@ const showSceme = new Schema({
         ref:'movies',
         required:true
     },
-    theatre:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'theatres',
-        required:true
+    theatre: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'theatres', // ✅ Matches the corrected model name
+        required: true
     },
     totalSeats:{
         type:Number,
@@ -39,6 +39,6 @@ const showSceme = new Schema({
 
 },{timestamps:true});
 
-const Show = model('shows', showSceme);
+const Show = model('shows', showSchema);
 
 export default Show;

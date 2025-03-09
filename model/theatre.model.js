@@ -32,6 +32,6 @@ const theatreSchema = new Schema({
 
 },{timestamps:true});
 
-const Theatre = model('threatres', theatreSchema);
+const Theatre = model('theatres', theatreSchema);
 
 export default Theatre;

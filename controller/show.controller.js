@@ -1,5 +1,4 @@
 import Show from '../model/show.model.js';
-import Theatre from '../model/theatre.model.js';
 
 export const addShow = async(req,res) =>{
 
@@ -54,7 +53,7 @@ export const deleteShow = async(req,res) =>{
 export const getShowById = async(req,res) =>{
 
     try{
-        const showDetail = await Show.findById(req.params.showId).populate(['movies','theatres'])
+        const showDetail = await Show.findById({ _id: req.params.showId}).populate(['movie','theatre'])
         res.send(showDetail)
     }catch(e){
         res.status(500).send({
