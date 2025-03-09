@@ -18,7 +18,7 @@ const showSceme = new Schema({
         ref:'movies',
         required:true
     },
-    threatre:{
+    theatre:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'theatres',
         required:true
@@ -31,7 +31,7 @@ const showSceme = new Schema({
         type:[String],
         default:[]
     },
-    tikcetPrice:{
+    ticketPrice:{
         type:Number,
         required:true
     }

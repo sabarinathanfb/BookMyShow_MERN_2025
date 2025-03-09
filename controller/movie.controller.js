@@ -60,6 +60,8 @@ export const updateMovie = async(req, res)=>{
             {$set: req.body},
             {new: true, runValidators: true}
         )
+
+        res.send(movieDetails)
     }catch(e){
         res.status(500).send({
             success:false,
